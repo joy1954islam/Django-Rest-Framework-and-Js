@@ -13,10 +13,40 @@
       <th scope="col">Delete</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="personal_information">
     <tr>
 
     </tr>
   </tbody>
 </table>
+<script>
+    // list of personal information
+
+    var xhttpPersonalInformation = new XMLHttpRequest();
+    xhttpPersonalInformation.onreadystatechange = function() {
+
+        if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            console.log(response);
+            var personal_information = document.getElementById("personal_information");
+            var responseLength = (response.length);
+
+            for (i = 0; i < responseLength; i++) {
+                personal_information.innerHTML +=
+                    `<tr>
+                          <td>${response[i].name}</td>
+                          <td>${response[i].name}</td>
+                          <td>${response[i].first_name}</td>
+                          <td>${response[i].last_name}</td>
+                          <td>${response[i].email}</td>
+                          <td>${response[i].country}</td>
+                    </tr>`
+            }
+        }
+    }
+
+    xhttpPersonalInformation.open("GET", "{% url 'personal_information_list' %}", true);
+    xhttpPersonalInformation.setRequestHeader("content-Type", "application/json");
+    xhttpPersonalInformation.send();
+</script>
 {% endblock content %}
