@@ -48,3 +48,7 @@ def personal_information_detail(request, pk):
     elif request.method == 'DELETE':
         personal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def personal_information(request):
+    return render(request, 'personal_information_list.html')
