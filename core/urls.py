@@ -7,7 +7,7 @@ from django.conf import settings
 urlpatterns = [
     # API
     path('personal_information_list/', views.personal_information_list, name='personal_information_list'),
-    path('personal_information_list/<int:pk>/', views.personal_information_detail, name='personal_information_detail'),
+    path('personal_information_detail/<int:pk>/', views.personal_information_detail, name='personal_information_detail'),
 
     path('', views.personal_information, name='personal_information')
 

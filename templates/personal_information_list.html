@@ -68,6 +68,12 @@
                           <td>${response[i].last_name}</td>
                           <td>${response[i].email}</td>
                           <td>${response[i].country}</td>
+                          <td>
+                            <button class="btn btn-success" data-personal=${response[i].id} onclick="UpdatePersonalInformation(event)">Update</button>
+                           </td>
+                          <td>
+                            <button class="btn btn-danger" onclick="deletePersonalInformation(${response[i].id})">Delete</button>
+                        </td>
                     </tr>`
             }
         }
@@ -106,5 +112,25 @@
         xhttpPersonalInformationCreate.send(PersonalInformationFormData);
     };
 
+    // Delete Personal Information
+    function deletePersonalInformation(id) {
+        var xhttpPersonalInformationDelete = new XMLHttpRequest();
+
+        xhttpPersonalInformationDelete.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                var personal = document.getElementById("" + id + "");
+                if (this.status === 204) {
+                    window.location.reload();
+                    console.log("delete personal information");
+                } else {
+                    console.log("error");
+                }
+            }
+        };
+        xhttpPersonalInformationDelete.open("DELETE", "/personal_information_detail/" + id + "/", true);
+        xhttpPersonalInformationDelete.setRequestHeader("Content-Type", "application/json");
+        xhttpPersonalInformationDelete.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+        xhttpPersonalInformationDelete.send();
+    }
 </script>
 {% endblock content %}
